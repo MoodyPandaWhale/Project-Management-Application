@@ -103,8 +103,15 @@ const List = ({ title, tasks, _id, submit}) => {
 			</div>
 		);
 	};
-	
 
+	const renderArr =[];
+
+	if (tasks) {
+		tasks.forEach((el) => {
+			renderArr.push(<Task taskName={el}/>)
+		})
+	}
+	
 	// render the array of tasks and buttons
 	return (
 		<div className='list'>
@@ -122,7 +129,7 @@ const List = ({ title, tasks, _id, submit}) => {
 		
 			<div>
 				Tasks:
-				{/* {arrOfTasks} */}
+				{renderArr}
 			</div>
 			<input id='addNewTask' onChange={(e) => setTask(e.target.value)}></input>
 			<button
