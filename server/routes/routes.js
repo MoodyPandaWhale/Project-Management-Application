@@ -11,7 +11,9 @@ router.get('/home', controller.home, (req, res) => {
 router.post('/login', controller.login, (req, res) => {
 	res.status(200).send(res.locals.people);
 });
-
+router.post('/deleteAllLists', controller.deleteAllLists, (req,res) => {
+	res.status(200)
+})
 router.post('/signup', controller.isUnique, controller.signup, (req, res) => {
 	res.status(200).json({ message: 'user created' });
 });
