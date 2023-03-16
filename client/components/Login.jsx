@@ -4,11 +4,12 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { fetchLists, getUsername } from '../slice';
+import { useSelector } from 'react-redux';
 // define Login component
 const Login = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
+	const stateLists = useSelector((state) => state.lists.lists)
 	// define onClick functionality for the login button
 	const login = async () => {
 		const username = document.getElementById('usernameInput').value;
@@ -21,8 +22,12 @@ const Login = (props) => {
 		  .then((res) => {
 		    if(res.status === 200) {
 				// console.log(res.data[0].username)
+				if(stateLists.length == 0) {
+				
 				dispatch(getUsername(res.data[0].username))
+				console.log('here', res.data[0].username)
 				dispatch(fetchLists(res.data[0].lists))
+				}
 				// console.log('res', res.data[0].lists)
 		      navigate({
 		        pathname: '/home',

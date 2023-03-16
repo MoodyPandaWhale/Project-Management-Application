@@ -7,6 +7,7 @@ import { getUsername } from '../slice';
 // define Signup component
 const Signup = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   // define onClick functionality for the signup function
   const signupAndLogin = async () => {
     const username = document.getElementById('signupUsername').value;
@@ -16,7 +17,8 @@ const Signup = (props) => {
     const data = await axios.post('/signup', requestBody)
       .then((response) => {
         if(response.status === 200) {
-          dispatchEvent(getUsername(username))
+          console.log(response)
+          dispatch(getUsername(username))
           navigate({
             pathname: '/home',
             search: `?username=${username}`});

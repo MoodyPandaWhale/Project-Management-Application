@@ -43,7 +43,20 @@ const controller = {
 		// console.log(data);
 		next();
 	},
-
+	async saveUserList(req, res, next) {
+		const { title, task, _id, username } = await req.body;
+		try {
+		  const updatedUser = await schemas.people.findOneAndUpdate(
+			{ username },
+			{ $push: { lists: { title, task, _id, submit: true } } },
+			{ new: true }
+		  );
+		  res.locals.updatedList = updatedUser;
+		  next();
+		} catch (err) {
+		  console.log(err)
+		}
+	  },
 	async saveList(req, res, next) {
 		console.log('in saveList middleware');
 		const { title, tasks, _id } = req.body;

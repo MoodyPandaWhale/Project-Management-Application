@@ -35,7 +35,8 @@ const listsSlice = createSlice({
 	initialState,
 	reducers: {
 		fetchLists(state, action) {
-			state.lists.push(action.payload);
+			console.log('fetchlist', action.payload)
+			state.lists.push(...action.payload);
 		},
 		getUsername(state, action) {
 			state['username'] = action.payload;
@@ -117,13 +118,19 @@ export const thunks = {
 				.then((response) => dispatch(createList(response.data)));
 		};
 	},
-	saveListThunk(listDetails) {
+	saveMadeListThunk() {
+		console.log('in sMDT')
 		return (dispatch) => {
-			axios
-				.post('/saveList', { listDetails })
-				.then((response) => dispatch(saveList(response)));
-		};
+			axios.post('/saveList', )
+		}
 	},
+	// saveListThunk(listDetails) {
+	// 	return (dispatch) => {
+	// 		axios
+	// 			.post('/saveList', { listDetails })
+	// 			.then((response) => dispatch(saveList(response)));
+	// 	};
+	// },
 
 	// deleteListThunk(listDetails) {
 	//   return  (dispatch) => {

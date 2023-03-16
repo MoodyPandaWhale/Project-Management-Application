@@ -15,7 +15,9 @@ router.post('/login', controller.login, (req, res) => {
 router.post('/signup', controller.isUnique, controller.signup, (req, res) => {
 	res.status(200).json({ message: 'user created' });
 });
-
+router.post('/saveUserList', controller.saveUserList, (req, res) => {
+	res.status(200).json(res.locals.saveUserList)
+})
 router.post('/createList', controller.createList, (req, res) => {
 	res.status(200).json(res.locals._id); // tell them to store this id in list component
 });
