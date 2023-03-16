@@ -133,10 +133,6 @@ const List = ({ title, tasks, _id, submit}) => {
 			>
 				Add Task
 			</button>
-			<div>
-				ID:
-				{_id}
-			</div>
 			<button onClick={() => deleteLists(_id)}>Delete List</button>
 
 			{/* <div className='buttonRow'>
