@@ -79,16 +79,12 @@ const List = ({ title, tasks, _id, submit}) => {
 	const deleteLists = (id) => {
 		console.log('stateLists',stateLists)
 		const updatedList = stateLists.filter((list) => {
-			console.log('list._id',list._id)
-			console.log('props._id', id)
 			return list._id !== id});
 			console.log('updatedList',updatedList)
-		
 		dispatch(deleteList(updatedList));
-
-		console.log('running after dispatch')
 		axios.post('/deleteList',{
-			_id: id
+			username, 
+			updatedList,
 		})
 
 	};

@@ -62,6 +62,9 @@ const listsSlice = createSlice({
 			console.log('action', action);
 			state.lists = action.payload;
 		},
+		deleteAllLists(state, action) {
+			state.lists = []
+		},
 		// action payload:
 		updateLists(state, action) {
 			//expects action.payload to be a new array of lists
@@ -192,6 +195,7 @@ export const {
 	deleteList,
 	updateLists,
 	deleteTask,
+	deleteAllLists,
 	saveTask,
 	moveTask,
 	saveList,
