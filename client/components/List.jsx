@@ -7,21 +7,21 @@ import axios from 'axios';
 
 const List = ({ title, tasks, _id, submit}) => {
   const dispatch = useDispatch();
-  const [task, setTask] = useState(submit);
+  const [task, setTask] = useState('');
   const [submitted, setSubmit] = useState(submit); // Add submit state
   const stateLists = useSelector((state) => state.lists.lists);
   const username = useSelector((state) => state.lists.username)
+  const [listTitle, setTitle] = useState('');
+
+	
 //   const isSubmit = useSelector((state) => state.lists.submit)
 
-  const onChange = (e) => {
-    setTask(e.target.value);
-  };
 
   const saveTitle = async (e) => {
     e.preventDefault();
     setSubmit(true); // Update submit state to true
 	// dispatch(thunks.saveMadeListThunk())
-	const data = await axios.post('/saveUserList', {title: task, tasks: tasks, _id: _id, username: username})
+	const data = await axios.post('/saveUserList', {title: listTitle, tasks: tasks, _id: _id, username: username})
 		.then((res) => {
 			if(res.status === 200) {
 				console.log(res)
@@ -55,14 +55,21 @@ const List = ({ title, tasks, _id, submit}) => {
 	// 	);
 	// }
 
-	// define the addTask functionality that will trigger on button click
-	// const addTask = () => {
-	// 	let listIndex;
-	// 	for (let i = 0; i < stateLists.length; i++) {
-	// 		if (stateLists[i]._id === props._id) listIndex = i;
-	// 	}
-	// 	dispatch(addTask(listIndex));
-	// };
+	const addNewTask = (propsObj) => {
+		const { _id, task } = propsObj;
+		console.log('trying to add new task:', task, 'on list _id:', _id);
+		const cloneOfLists = structuredClone(stateLists);
+		cloneOfLists.forEach((list) => {
+			if (list._id == _id) {
+				console.log('list found:', list);
+				list.tasks.push(task);
+			}
+		});
+		dispatch(updateLists(cloneOfLists));
+		// axios.post('/addTask', propsObj);
+	};
+
+
 	const submitList = (id) => {
 		const updatedList = stateLists.filter((list) => {
 			return list._id !== id});
@@ -85,6 +92,17 @@ const List = ({ title, tasks, _id, submit}) => {
 		})
 
 	};
+
+	// define the task component
+	const Task = ({ taskName }) => {
+		/// render appropriate divs and their values
+		return (
+			<div>
+				{taskName}
+				<br />
+			</div>
+		);
+	};
 	
 
 	// render the array of tasks and buttons
@@ -92,12 +110,12 @@ const List = ({ title, tasks, _id, submit}) => {
 		<div className='list'>
 			{submitted === true ? 
 			<div>
-				<h2>{title || task}</h2>
+				<h2>{listTitle}</h2>
 			</div> : 	
 			<div>
-				Title:{title}
+				{/* Title:{listTitle} */}
 				<form onSubmit={saveTitle}>
-					<input type='text' onChange={onChange}></input>
+					<input type='text' onChange={(e) => setTitle(e.target.value)}></input>
 					<input type='submit'></input>
 				</form>
 			</div>}

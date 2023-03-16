@@ -18,7 +18,7 @@ const initialState = { lists: [] };
 
 const blankList = {
 	title: '',
-	taskArr: [],
+	tasks: [],
 	_id: undefined,
 	submit: false,
 };

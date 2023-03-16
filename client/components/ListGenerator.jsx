@@ -6,7 +6,7 @@ const ListGenerator = (props) => {
 	let lists = useSelector((state) => state.lists.lists);
 	// declare a constant arrOfLists and populate it with the lists in state.reducer.lists
 	let arrOfLists = lists.map((list) => {
-		return <List title={list.title} tasks={list.taskArr} _id={list._id} submit={list.submit} />
+		return <List title={list.title} tasks={list.tasks} _id={list._id} submit={list.submit} />
 	});
 
 	// render the array of lists
